@@ -24,24 +24,24 @@ The most important features of *zkbd* are:
  - Support for all possible Shift, Caps, Alt/AltGr combinations, which makes eight possible combinations for each key. As a comparison the original Atari keymaps only support three maps (base, shift, caps) per key, plus some hardcoded Alt combos on some local implementations.
  - Extensive support for dead keys. 13 different dead keys are supported in the different available keymaps.
  - Currently available keymaps for the following PC keyboards:
-  - German
-  - Danish
-  - Spanish
-  - French
-  - French (BÉPO)
-  - English (UK)
-  - English (US)
-  - Greek
-  - Dutch
-  - Norwegian
-  - Polish
-  - Swedish
+   - German
+   - Danish
+   - Spanish
+   - French
+   - French (BÉPO)
+   - English (UK)
+   - English (US)
+   - Greek
+   - Dutch
+   - Norwegian
+   - Polish
+   - Swedish
  - Also provided is a keymap for the French Atari keyboard, with specific dead key management.
 
 Greek support actually implements two keymaps (US and Greek). US is selected by default, and you can switch between the two keymaps using the Alt+Shift combo.
 
 If you are interested in support for another keyboard type, please submit an issue on GitHub.
 
-## Installation
+## Installation
 
-Copy one of the executable files corresponding to the keymap you want into your AUTO folder.
+Copy one of the executable files corresponding to the keymap you want into your `AUTO` folder.
