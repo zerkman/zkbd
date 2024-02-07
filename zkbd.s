@@ -49,6 +49,7 @@ rb_buf		rs.b	rb_size
 
 begin:
 kbdvbase:	bra	install	; 4 bytes, will get kbdvbase pointer
+p_kbshift:	dc.l	0	; Pointer to TOS kbshift
 bconin_buf:	dc.w	0,0	; head, tail
 		dcb.b	rb_size,0	; buf
 packet:		dcb.b	8,0	; buffer for packets
@@ -194,6 +195,9 @@ keyboard_byte:
 	bne	no_modifier
 	bsr.s	keyclick
 	bchg.b	#4,kbdshift	; toggle caps lock bit
+modkey_rts:
+	move.l	p_kbshift(pc),a0
+	move.b	kbdshift(pc),(a0)
 	rts
 modkey_end:
 	tst.b	d0
@@ -215,10 +219,11 @@ dkm_test:
 	bchg	#0,current_keymap
 	endif
 dkm_end:
-	rts
+	bra.s	modkey_rts
+
 modkey_release:
 	bclr.b	d2,kbdshift	; clear modifier key bit
-	rts
+	bra.s	modkey_rts
 
 keyclick_data:
 	dc.b	$00,$3b,$01,$00,$02,$00,$03,$00,$04,$00,$05,$00,$06,$00,$07,$fe
@@ -540,6 +545,8 @@ msck_leftbut:
 msck_press:
 	bset	d3,kbdshift
 msck_release:
+	move.l	p_kbshift(pc),a0
+	move.b	kbdshift(pc),(a0)
 	moveq	#0,d1		; x movement
 	moveq	#0,d2		; y movement
 
@@ -683,6 +690,8 @@ kbshift:
 	move	(a0),d1		; mode
 	bmi.s	kbshift_end
 	move.b	d1,kbdshift
+	move.l	p_kbshift(pc),a0
+	move.b	d1,(a0)
 kbshift_end:
 	rte
 
@@ -796,6 +805,7 @@ sup_install:
 	rts
 
 tos_ok:
+	move.l	$24(a0),p_kbshift
 	move	sr,-(sp)
 	move	#$2700,sr
 
@@ -826,7 +836,7 @@ cconws:
 
 hello_txt:
 	dc.b	13,10
-	dc.b	27,"p- ZKBD keyboard driver v1.0 -",27,"q",13,10
+	dc.b	27,"p- ZKBD keyboard driver v1.1 -",27,"q",13,10
 	dc.b	"by Fran",$87,"ois Galea",13,10,0
 err_tos_txt:
 	dc.b	"Does not work on TOS <1.02 !",13,10,0
