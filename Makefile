@@ -15,7 +15,7 @@ TARGETS= \
   kb_us.prg \
 
 AS=vasmm68k_mot
-ASOPT=-m68000 -Ftos -nosym
+ASOPT=-m68000 -Ftos -tos-flags=7 -nosym
 CC=gcc
 CFLAGS=-g -Wall
 
