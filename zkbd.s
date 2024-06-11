@@ -25,6 +25,9 @@ alt_is_alt	equ	1
 	ifd	km_gr
 dual_keymap	equ	1
 	endif
+	ifd	km_bepo
+dual_keymap	equ	1
+	endif
 
 ; kbvbase system structure
 	rsreset
@@ -723,6 +726,8 @@ tc_up:	move.l	timer_c-4(pc),-(sp)
 kmap:
 	ifd	km_bepo
 	include	"km_bepo.s"
+	dc.b	0
+kmap2:	include	"km_fr.s"
 	endif
 	ifd	km_de
 	include	"km_de.s"
@@ -836,7 +841,7 @@ cconws:
 
 hello_txt:
 	dc.b	13,10
-	dc.b	27,"p- ZKBD keyboard driver v1.1 -",27,"q",13,10
+	dc.b	27,"p- ZKBD keyboard driver v1.2 -",27,"q",13,10
 	dc.b	"by Fran",$87,"ois Galea",13,10,0
 err_tos_txt:
 	dc.b	"Does not work on TOS <1.02 !",13,10,0
