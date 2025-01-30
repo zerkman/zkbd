@@ -615,9 +615,9 @@ bios:
 	move.l	bios-4(pc),-(sp)
 biosmain:
 	move	usp,a0		; user call stack
-	btst.b	#5,(sp)		; called from supervisor mode?
+	btst.b	#5,0+4(sp)	; called from supervisor mode?
 	beq.s	bsusr
-	lea	6(sp),a0	; supervisor call stack
+	lea	6+4(sp),a0	; supervisor call stack
 	tst	$59e.w		; _longframe
 	beq.s	bsusr
 	addq.l	#2,a0		; two additional bytes on 030+
@@ -841,7 +841,7 @@ cconws:
 
 hello_txt:
 	dc.b	13,10
-	dc.b	27,"p- ZKBD keyboard driver v1.2 -",27,"q",13,10
+	dc.b	27,"p- ZKBD keyboard driver v1.3 -",27,"q",13,10
 	dc.b	"by Fran",$87,"ois Galea",13,10,0
 err_tos_txt:
 	dc.b	"Does not work on TOS <1.02 !",13,10,0
