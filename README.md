@@ -1,6 +1,6 @@
 # zkbd - A modern keyboard driver for Atari ST compatible computers
 
-Copyright (c) 2023-2024 by François Galea (fgalea à free.fr)
+Copyright (c) 2023-2025 by François Galea (fgalea à free.fr)
 
 This project aims to provide complete support for keyboards, including modern ones, for the 1986 Atari ST and subsequent models.
 
